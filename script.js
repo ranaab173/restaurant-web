@@ -14,10 +14,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.classList.add('bg-opacity-95', 'shadow-lg');
+            navbar.classList.add('bg-opacity-90', 'shadow-lg'); // Changed to 90 for consistency with HTML
         } else {
-            navbar.classList.remove('bg-opacity-95', 'shadow-lg');
+            navbar.classList.remove('bg-opacity-90', 'shadow-lg');
         }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.querySelector('svg').classList.toggle('rotate-90');
     });
 
     // Smooth scrolling
@@ -28,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector(targetId).scrollIntoView({
                 behavior: 'smooth'
             });
+            // Close mobile menu after clicking a link
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('svg').classList.remove('rotate-90');
+            }
         });
     });
 
@@ -65,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Menu filter
-    const menuContainer = document.getElementById('menu-items');
+    const menuContainer = document.getElementById('menu-items'); // This variable is not used, but kept for context.
     const filterButtons = document.querySelectorAll('.filter-btn');
     function renderMenu(category = 'all') {
         const menuItems = document.querySelectorAll('.menu-item');
@@ -95,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Menu filter buttons
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active', 'bg-amber-400'));
-            button.classList.add('active', 'bg-amber-400');
+            filterButtons.forEach(btn => btn.classList.remove('active', 'bg-accent')); // Changed amber-400 to accent
+            button.classList.add('active', 'bg-accent'); // Changed amber-400 to accent
             const category = button.getAttribute('data-category');
             renderMenu(category);
         });
@@ -119,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name && date && time && guests) {
             formMessage.textContent = 'Reservation submitted successfully!';
-            formMessage.className = 'text-green-500';
+            formMessage.className = 'text-green-500'; // Kept green for success
             reservationForm.reset();
             gsap.fromTo(formMessage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
             setTimeout(() => {
@@ -127,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         } else {
             formMessage.textContent = 'Please fill out all fields.';
-            formMessage.className = 'text-red-500';
+            formMessage.className = 'text-red-500'; // Kept red for error
             gsap.fromTo(formMessage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
         }
     });

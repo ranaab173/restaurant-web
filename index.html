@@ -8,6 +8,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
+        /* Custom styles for the new color scheme */
+        :root {
+            --color-primary: #5C4033; /* Rich Brown */
+            --color-accent: #B8860B; /* Dark Goldenrod */
+            --color-text-light: #F5DEB3; /* Wheat */
+            --color-text-dark: #36454F; /* Charcoal */
+            --color-bg-light: #F8F8F8; /* Off-White */
+            --color-bg-medium: #ECE0D1; /* Creamy Beige */
+        }
+
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .hover\:bg-primary-darker:hover { background-color: #4A3328; } /* A slightly darker brown */
+
+        .bg-accent { background-color: var(--color-accent); }
+        .text-accent { color: var(--color-accent); }
+        .hover\:bg-accent-darker:hover { background-color: #A3740A; } /* A slightly darker goldenrod */
+
+        .text-text-light { color: var(--color-text-light); }
+        .text-text-dark { color: var(--color-text-dark); }
+
+        .bg-bg-light { background-color: var(--color-bg-light); }
+        .bg-bg-medium { background-color: var(--color-bg-medium); }
+
         /* Minimal custom CSS for parallax effect */
         .parallax-bg {
             background-attachment: fixed;
@@ -16,137 +40,151 @@
             transform: scale(1.1);
             z-index: -1;
         }
+        /* Ensure parallax works on mobile without breaking */
+        @media (max-width: 640px) {
+            .parallax-bg {
+                background-attachment: scroll;
+            }
+        }
     </style>
 </head>
-<body class="font-serif bg-gray-100 text-gray-900">
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 bg-gray-800 transition-all duration-300">
+<body class="font-serif bg-bg-light text-text-dark">
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-primary transition-all duration-300">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-white">Aurora Bistro</div>
-            <div class="space-x-6">
-                <a href="#home" class="nav-link text-white hover:text-amber-400 transition-colors duration-300">Home</a>
-                <a href="#menu" class="nav-link text-white hover:text-amber-400 transition-colors duration-300">Menu</a>
-                <a href="#about" class="nav-link text-white hover:text-amber-400 transition-colors duration-300">About</a>
-                <a href="#reservations" class="nav-link text-white hover:text-amber-400 transition-colors duration-300">Reservations</a>
-                <a href="#contact" class="nav-link text-white hover:text-amber-400 transition-colors duration-300">Contact</a>
+            <div class="text-2xl font-bold text-text-light">Aurora Bistro</div>
+            <button id="mobile-menu-btn" class="sm:hidden text-text-light focus:outline-none">
+                <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <div id="nav-links" class="hidden sm:flex sm:space-x-6">
+                <a href="#home" class="nav-link text-text-light hover:text-accent transition-colors duration-300">Home</a>
+                <a href="#menu" class="nav-link text-text-light hover:text-accent transition-colors duration-300">Menu</a>
+                <a href="#about" class="nav-link text-text-light hover:text-accent transition-colors duration-300">About</a>
+                <a href="#reservations" class="nav-link text-text-light hover:text-accent transition-colors duration-300">Reservations</a>
+                <a href="#contact" class="nav-link text-text-light hover:text-accent transition-colors duration-300">Contact</a>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden sm:hidden bg-primary flex-col items-center space-y-4 py-4">
+            <a href="#home" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Home</a>
+            <a href="#menu" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Menu</a>
+            <a href="#about" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">About</a>
+            <a href="#reservations" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Reservations</a>
+            <a href="#contact" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Contact</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-20">
-        <div class="parallax-overlay absolute inset-0 bg-blue-900 bg-opacity-50 transition-opacity duration-500"></div>
-        <div class="animate-hero text-center relative z-10 text-white">
-            <h1 class="text-5xl md:text-7xl font-bold mb-4">Aurora Bistro</h1>
-            <p class="text-xl md:text-2xl mb-8">Where Culinary Dreams Meet Art</p>
-            <a href="#reservations" class="inline-block bg-amber-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-amber-500 transition-colors duration-300">Book a Table</a>
+    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-16 sm:pt-20">
+        <div class="parallax-overlay absolute inset-0 bg-primary bg-opacity-50 transition-opacity duration-500"></div>
+        <div class="animate-hero text-center relative z-10 text-text-light px-4">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4">Aurora Bistro</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8">Where Culinary Dreams Meet Art</p>
+            <a href="#reservations" class="inline-block bg-accent text-primary px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-accent-darker transition-colors duration-300 shadow-md">Book a Table</a>
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu" class="py-16 bg-gray-50">
+    <section id="menu" class="py-12 sm:py-16 bg-bg-medium">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Our Culinary Creations</h2>
-            <div class="flex justify-center space-x-4 mb-8">
-                <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 active:bg-amber-400" data-category="all">All</button>
-                <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 active:bg-amber-400" data-category="starters">Starters</button>
-                <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 active:bg-amber-400" data-category="mains">Mains</button>
-                <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 active:bg-amber-400" data-category="desserts">Desserts</button>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Our Culinary Creations</h2>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
+                <button class="filter-btn bg-primary text-text-light px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-darker transition-all duration-300 active:bg-accent" data-category="all">All</button>
+                <button class="filter-btn bg-primary text-text-light px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-darker transition-all duration-300 active:bg-accent" data-category="starters">Starters</button>
+                <button class="filter-btn bg-primary text-text-light px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-darker transition-all duration-300 active:bg-accent" data-category="mains">Mains</button>
+                <button class="filter-btn bg-primary text-text-light px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-darker transition-all duration-300 active:bg-accent" data-category="desserts">Desserts</button>
             </div>
-            <div id="menu-items" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="starters">
-                    <img src="https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Truffle Crostini" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Truffle Crostini</h3>
-                    <p class="text-gray-600">Toasted baguette with truffle spread and microgreens.</p>
-                    <p class="text-blue-600 font-bold mt-2">$14</p>
+            <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="starters">
+                    <img src="https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Truffle Crostini" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Truffle Crostini</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Toasted baguette with truffle spread and microgreens.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$14</p>
                 </div>
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="starters">
-                    <img src="https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Caprese Skewers" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Caprese Skewers</h3>
-                    <p class="text-gray-600">Cherry tomatoes, mozzarella, and basil drizzled with balsamic.</p>
-                    <p class="text-blue-600 font-bold mt-2">$12</p>
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="starters">
+                    <img src="https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Caprese Skewers" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Caprese Skewers</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Cherry tomatoes, mozzarella, and basil drizzled with balsamic.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$12</p>
                 </div>
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="mains">
-                    <img src="https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Seared Salmon" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Seared Salmon</h3>
-                    <p class="text-gray-600">Fresh salmon with citrus glaze and herb salad.</p>
-                    <p class="text-blue-600 font-bold mt-2">$28</p>
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="mains">
+                    <img src="https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Seared Salmon" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Seared Salmon</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Fresh salmon with citrus glaze and herb salad.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$28</p>
                 </div>
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="mains">
-                    <img src="https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb:w=1260&h=750&dpr=1" alt="Truffle Risotto" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Truffle Risotto</h3>
-                    <p class="text-gray-600">Creamy Arborio rice with black truffle and parmesan.</p>
-                    <p class="text-blue-600 font-bold mt-2">$24</p>
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="mains">
+                    <img src="https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Truffle Risotto" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Truffle Risotto</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Creamy Arborio rice with black truffle and parmesan.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$24</p>
                 </div>
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="desserts">
-                    <img src="https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Chocolate Lava Cake" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Chocolate Lava Cake</h3>
-                    <p class="text-gray-600">Warm chocolate cake with a molten center, served with vanilla ice cream.</p>
-                    <p class="text-blue-600 font-bold mt-2">$12</p>
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="desserts">
+                    <img src="https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Chocolate Lava Cake" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Chocolate Lava Cake</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Warm chocolate cake with a molten center, served with vanilla ice cream.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$12</p>
                 </div>
-                <div class="menu-item card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="desserts">
-                    <img src="https://images.pexels.com/photos/869685/pexels-photo-869685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lemon Tart" class="w-full h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
-                    <h3 class="text-2xl font-semibold mt-4 text-amber-400">Lemon Tart</h3>
-                    <p class="text-gray-600">Zesty lemon curd in a buttery crust with fresh berries.</p>
-                    <p class="text-blue-600 font-bold mt-2">$10</p>
+                <div class="menu-item card bg-bg-light p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-category="desserts">
+                    <img src="https://images.pexels.com/photos/869685/pexels-photo-869685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lemon Tart" class="w-full h-40 sm:h-48 object-cover rounded-t-lg" onerror="this.src='https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                    <h3 class="text-xl sm:text-2xl font-semibold mt-4 text-accent">Lemon Tart</h3>
+                    <p class="text-text-dark text-sm sm:text-base">Zesty lemon curd in a buttery crust with fresh berries.</p>
+                    <p class="text-primary font-bold mt-2 text-sm sm:text-base">$10</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
+    <section id="about" class="py-12 sm:py-16 bg-bg-light">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Our Story</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Our Story</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div class="animate-about">
-                    <img src="https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="About Aurora Bistro" class="w-full h-96 object-cover rounded-lg shadow-2xl">
+                    <img src="https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="About Aurora Bistro" class="w-full h-64 sm:h-96 object-cover rounded-lg shadow-2xl">
                 </div>
                 <div class="animate-about">
-                    <p class="text-lg text-gray-600">Aurora Bistro is a sanctuary of taste and creativity, born from a passion for redefining dining. Our chefs, artists in their own right, craft dishes that blend bold flavors with local, sustainable ingredients. Step into a world where every meal is a masterpiece, set against an ambiance that sparks inspiration.</p>
+                    <p class="text-base sm:text-lg text-text-dark">Aurora Bistro is a sanctuary of taste and creativity, born from a passion for redefining dining. Our chefs, artists in their own right, craft dishes that blend bold flavors with local, sustainable ingredients. Step into a world where every meal is a masterpiece, set against an ambiance that sparks inspiration.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reservations Section -->
-    <section id="reservations" class="py-16 bg-gray-50">
+    <section id="reservations" class="py-12 sm:py-16 bg-bg-medium">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Reserve Your Experience</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Reserve Your Experience</h2>
             <div class="max-w-lg mx-auto animate-contact">
-                <div class="space-y-4">
-                    <input id="name" type="text" placeholder="Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400">
-                    <input id="date" type="date" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400">
-                    <input id="time" type="time" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400">
-                    <input id="guests" type="number" placeholder="Number of Guests" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400">
-                    <button id="submit-reservation" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">Submit Reservation</button>
-                    <p id="form-message" class="text-center"></p>
-                </div>
+                <form id="reservation-form" class="space-y-4">
+                    <input id="name" type="text" placeholder="Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                    <input id="date" type="date" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                    <input id="time" type="time" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                    <input id="guests" type="number" placeholder="Number of Guests" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" min="1" required>
+                    <button id="submit-reservation" type="submit" class="w-full bg-primary text-text-light p-3 rounded-lg hover:bg-primary-darker transition-colors duration-300 shadow-md">Submit Reservation</button>
+                    <p id="form-message" class="text-center text-sm sm:text-base"></p>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
+    <section id="contact" class="py-12 sm:py-16 bg-bg-light">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Connect With Us</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center animate-contact">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Connect With Us</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center animate-contact">
                 <div>
-                    <p class="text-lg font-semibold text-gray-800">+1 (555) 123-4567</p>
+                    <p class="text-base sm:text-lg font-semibold text-primary">Phone:</p>
+                    <p class="text-text-dark">+1 (555) 123-4567</p>
                 </div>
                 <div>
-                    <p class="text-lg font-semibold text-gray-800">contact@aurorabistro.com</p>
+                    <p class="text-base sm:text-lg font-semibold text-primary">Email:</p>
+                    <p class="text-text-dark">contact@aurorabistro.com</p>
                 </div>
                 <div>
-                    <p class="text-lg font-semibold text-gray-800">123 Flavor Street, Food City</p>
+                    <p class="text-base sm:text-lg font-semibold text-primary">Address:</p>
+                    <p class="text-text-dark">123 Flavor Street, Food City</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-8 bg-gray-800 text-white text-center">
-        <p>© 2025 Aurora Bistro. All rights reserved.</p>
+    <footer class="py-8 bg-primary text-text-light text-center">
+        <p class="text-sm sm:text-base">© 2025 Aurora Bistro. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
