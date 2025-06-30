@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,27 +10,32 @@
     <style>
         /* Custom styles for the new greenish color scheme */
         :root {
-            --color-primary: #2F4F4F; /* Dark Slate Gray - deep, rich green */
-            --color-accent: #6B8E23; /* Olive Drab - a vibrant, earthy green */
-            --color-text-light: #F0FFF0; /* Honeydew - light for dark backgrounds */
-            --color-text-dark: #1A331A; /* Very Dark Green - dark for light backgrounds */
-            --color-bg-light: #F8FFF8; /* Very light greenish white */
-            --color-bg-medium: #EBF5EB; /* Slightly darker greenish white */
+            --color-primary: #0A4F35; /* A deep, rich forest green */
+            --color-accent: #66BB6A; /* A vibrant, fresh green */
+            --color-text-light: #E0F2F1; /* Light aqua green, for good contrast on dark backgrounds */
+            --color-text-dark: #004D40; /* Very dark teal green, for good contrast on light backgrounds */
+            --color-bg-light: #F1F8F0; /* Very light, almost white green */
+            --color-bg-medium: #E8F5E9; /* Slightly darker light green */
         }
 
         .bg-primary { background-color: var(--color-primary); }
         .text-primary { color: var(--color-primary); }
-        .hover\:bg-primary-darker:hover { background-color: #253D3D; } /* A slightly darker primary green */
+        .hover\:bg-primary-darker:hover { background-color: #073F2B; } /* A slightly darker primary green for hover */
 
         .bg-accent { background-color: var(--color-accent); }
         .text-accent { color: var(--color-accent); }
-        .hover\:bg-accent-darker:hover { background-color: #5A771E; } /* A slightly darker accent green */
+        .hover\:bg-accent-darker:hover { background-color: #55A859; } /* A slightly darker accent green for hover */
 
         .text-text-light { color: var(--color-text-light); }
         .text-text-dark { color: var(--color-text-dark); }
 
         .bg-bg-light { background-color: var(--color-bg-light); }
         .bg-bg-medium { background-color: var(--color-bg-medium); }
+
+        /* Navbar gradient */
+        .navbar-gradient {
+            background-image: linear-gradient(to right, var(--color-primary), #1A6B4D); /* Gradient from primary to a slightly lighter green */
+        }
 
         /* Minimal custom CSS for parallax effect */
         .parallax-bg {
@@ -56,14 +61,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay with 80% opacity (increased) */
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay with 80% opacity */
             z-index: 0;
         }
     </style>
 </head>
 <body class="font-serif bg-bg-light text-text-dark">
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 bg-primary transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 navbar-gradient transition-all duration-300">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-text-light">Aurora Bistro</div>
             <button id="mobile-menu-btn" class="sm:hidden text-text-light focus:outline-none">
@@ -80,7 +85,7 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden sm:hidden bg-primary flex-col items-center space-y-4 py-4">
+        <div id="mobile-menu" class="hidden sm:hidden navbar-gradient flex-col items-center space-y-4 py-4">
             <a href="#home" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Home</a>
             <a href="#menu" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Menu</a>
             <a href="#about" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">About</a>
@@ -90,7 +95,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-16 sm:pt-20">
+    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-16 sm:pt-20" style="overflow: hidden;">
         <div class="parallax-overlay"></div>
         <div class="animate-hero text-center relative z-10 text-text-light px-4">
             <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4">Aurora Bistro</h1>
