@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.classList.add('bg-opacity-90', 'shadow-lg'); // Changed to 90 for consistency with HTML
+            navbar.classList.add('bg-opacity-90', 'shadow-lg');
         } else {
             navbar.classList.remove('bg-opacity-90', 'shadow-lg');
         }
@@ -69,16 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
         y: 100
     });
 
-    gsap.to('.parallax-overlay', {
-        scrollTrigger: {
-            trigger: '#home',
-            scrub: true
-        },
-        opacity: 0.8
-    });
+    // Removed the parallax-overlay animation entirely
+    // as the overlay div is removed from HTML.
 
     // Menu filter
-    const menuContainer = document.getElementById('menu-items'); // This variable is not used, but kept for context.
+    const menuContainer = document.getElementById('menu-items');
     const filterButtons = document.querySelectorAll('.filter-btn');
     function renderMenu(category = 'all') {
         const menuItems = document.querySelectorAll('.menu-item');
@@ -108,8 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Menu filter buttons
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active', 'bg-accent')); // Changed amber-400 to accent
-            button.classList.add('active', 'bg-accent'); // Changed amber-400 to accent
+            filterButtons.forEach(btn => btn.classList.remove('active', 'bg-accent'));
+            button.classList.add('active', 'bg-accent');
             const category = button.getAttribute('data-category');
             renderMenu(category);
         });
@@ -132,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name && date && time && guests) {
             formMessage.textContent = 'Reservation submitted successfully!';
-            formMessage.className = 'text-green-500'; // Kept green for success
+            formMessage.className = 'text-green-500';
             reservationForm.reset();
             gsap.fromTo(formMessage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
             setTimeout(() => {
@@ -140,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         } else {
             formMessage.textContent = 'Please fill out all fields.';
-            formMessage.className = 'text-red-500'; // Kept red for error
+            formMessage.className = 'text-red-500';
             gsap.fromTo(formMessage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
         }
     });

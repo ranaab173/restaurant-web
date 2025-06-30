@@ -8,23 +8,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
-        /* Custom styles for the new color scheme */
+        /* Custom styles for the new greenish color scheme */
         :root {
-            --color-primary: #5C4033; /* Rich Brown */
-            --color-accent: #B8860B; /* Dark Goldenrod */
-            --color-text-light: #F5DEB3; /* Wheat */
-            --color-text-dark: #36454F; /* Charcoal */
-            --color-bg-light: #F8F8F8; /* Off-White */
-            --color-bg-medium: #ECE0D1; /* Creamy Beige */
+            --color-primary: #2F4F4F; /* Dark Slate Gray - deep, rich green */
+            --color-accent: #6B8E23; /* Olive Drab - a vibrant, earthy green */
+            --color-text-light: #F0FFF0; /* Honeydew - light for dark backgrounds */
+            --color-text-dark: #1A331A; /* Very Dark Green - dark for light backgrounds */
+            --color-bg-light: #F8FFF8; /* Very light greenish white */
+            --color-bg-medium: #EBF5EB; /* Slightly darker greenish white */
         }
 
         .bg-primary { background-color: var(--color-primary); }
         .text-primary { color: var(--color-primary); }
-        .hover\:bg-primary-darker:hover { background-color: #4A3328; } /* A slightly darker brown */
+        .hover\:bg-primary-darker:hover { background-color: #253D3D; } /* A slightly darker primary green */
 
         .bg-accent { background-color: var(--color-accent); }
         .text-accent { color: var(--color-accent); }
-        .hover\:bg-accent-darker:hover { background-color: #A3740A; } /* A slightly darker goldenrod */
+        .hover\:bg-accent-darker:hover { background-color: #5A771E; } /* A slightly darker accent green */
 
         .text-text-light { color: var(--color-text-light); }
         .text-text-dark { color: var(--color-text-dark); }
@@ -46,9 +46,23 @@
                 background-attachment: scroll;
             }
         }
+        /* Prevent horizontal scroll on small screens for any potential overflow */
+        body {
+            overflow-x: hidden;
+        }
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay with 80% opacity (increased) */
+            z-index: 0;
+        }
     </style>
 </head>
 <body class="font-serif bg-bg-light text-text-dark">
+    <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 w-full z-50 bg-primary transition-all duration-300">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-text-light">Aurora Bistro</div>
@@ -65,6 +79,7 @@
                 <a href="#contact" class="nav-link text-text-light hover:text-accent transition-colors duration-300">Contact</a>
             </div>
         </div>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden sm:hidden bg-primary flex-col items-center space-y-4 py-4">
             <a href="#home" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Home</a>
             <a href="#menu" class="nav-link text-text-light hover:text-accent transition-colors duration-300 block w-full text-center py-2">Menu</a>
@@ -74,8 +89,9 @@
         </div>
     </nav>
 
-    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-16 sm:pt-20">
-        <div class="parallax-overlay absolute inset-0 bg-primary bg-opacity-50 transition-opacity duration-500"></div>
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] parallax-bg pt-16 sm:pt-20">
+        <div class="parallax-overlay"></div>
         <div class="animate-hero text-center relative z-10 text-text-light px-4">
             <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4">Aurora Bistro</h1>
             <p class="text-lg sm:text-xl md:text-2xl mb-8">Where Culinary Dreams Meet Art</p>
@@ -83,6 +99,7 @@
         </div>
     </section>
 
+    <!-- Menu Section -->
     <section id="menu" class="py-12 sm:py-16 bg-bg-medium">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Our Culinary Creations</h2>
@@ -133,6 +150,7 @@
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="py-12 sm:py-16 bg-bg-light">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Our Story</h2>
@@ -147,6 +165,7 @@
         </div>
     </section>
 
+    <!-- Reservations Section -->
     <section id="reservations" class="py-12 sm:py-16 bg-bg-medium">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Reserve Your Experience</h2>
@@ -163,6 +182,7 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="py-12 sm:py-16 bg-bg-light">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary mb-8 sm:mb-12">Connect With Us</h2>
@@ -183,6 +203,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="py-8 bg-primary text-text-light text-center">
         <p class="text-sm sm:text-base">© 2025 Aurora Bistro. All rights reserved.</p>
     </footer>
